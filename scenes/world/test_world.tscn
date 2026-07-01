@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://8y84jid88owd"]
+
+[ext_resource type="PackedScene" uid="uid://dc4rxej3dpxsi" path="res://scenes/entities/player.tscn" id="1_tjl6x"]
+[ext_resource type="PackedScene" uid="uid://c0dhrntss3l6y" path="res://scenes/entities/little_guy.tscn" id="2_xl1yy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl1yy"]
+size = Vector2(1157, 20)
+
+[node name="TestWorld" type="Node2D" unique_id=743753521]
+
+[node name="Player" parent="." unique_id=918396539 instance=ExtResource("1_tjl6x")]
+position = Vector2(401, 380)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=84169839]
+position = Vector2(5, 503)
+collision_layer = 8
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1350521205]
+position = Vector2(568.5, 0)
+shape = SubResource("RectangleShape2D_xl1yy")
+
+[node name="LittleGuy" parent="." unique_id=1360872132 node_paths=PackedStringArray("player") instance=ExtResource("2_xl1yy")]
+position = Vector2(507, 246)
+player = NodePath("../Player")
+
+[node name="LittleGuy2" parent="." unique_id=164060178 node_paths=PackedStringArray("player") instance=ExtResource("2_xl1yy")]
+position = Vector2(688, 309)
+player = NodePath("../Player")
+
+[node name="LittleGuy3" parent="." unique_id=900032295 node_paths=PackedStringArray("player") instance=ExtResource("2_xl1yy")]
+position = Vector2(205, 209)
+player = NodePath("../Player")

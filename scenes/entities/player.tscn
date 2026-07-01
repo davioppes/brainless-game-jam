@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dc4rxej3dpxsi"]
+
+[ext_resource type="Script" uid="uid://bv7cl8gn4gjec" path="res://scenes/entities/player.gd" id="1_08t41"]
+[ext_resource type="Texture2D" uid="uid://gm873m5masnm" path="res://icon.svg" id="1_ucweq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_08t41"]
+size = Vector2(124, 124)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ie0h"]
+size = Vector2(72, 34)
+
+[node name="Player" type="CharacterBody2D" unique_id=918396539]
+scale = Vector2(0.5, 0.5)
+collision_mask = 8
+script = ExtResource("1_08t41")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=655502372]
+texture = ExtResource("1_ucweq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=530042959]
+shape = SubResource("RectangleShape2D_08t41")
+
+[node name="PickupArea" type="Area2D" parent="." unique_id=1090318311]
+position = Vector2(78, 38)
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=1025688479]
+position = Vector2(26, 7)
+shape = SubResource("RectangleShape2D_1ie0h")
+
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]
+[connection signal="body_exited" from="PickupArea" to="." method="_on_pickup_area_body_exited"]

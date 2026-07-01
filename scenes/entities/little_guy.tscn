@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c0dhrntss3l6y"]
+
+[ext_resource type="Script" uid="uid://74hqhiki7yps" path="res://scenes/entities/little_guy.gd" id="1_o56dn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aw3y0"]
+size = Vector2(40, 40)
+
+[node name="LittleGuy" type="RigidBody2D" unique_id=164060178]
+collision_layer = 2
+collision_mask = 10
+script = ExtResource("1_o56dn")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1032299538]
+
+[node name="ColorRect" type="ColorRect" parent="Area2D" unique_id=380372098]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1814861120]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_aw3y0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1849759469]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_aw3y0")
