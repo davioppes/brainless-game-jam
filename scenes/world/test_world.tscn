@@ -1,34 +1,54 @@
-[gd_scene format=3 uid="uid://8y84jid88owd"]
+[gd_scene format=4 uid="uid://8y84jid88owd"]
 
+[ext_resource type="Texture2D" uid="uid://c6ccu1xtmq0m" path="res://assets/temp.png" id="1_jlx5v"]
 [ext_resource type="PackedScene" uid="uid://dc4rxej3dpxsi" path="res://scenes/entities/player.tscn" id="1_tjl6x"]
 [ext_resource type="PackedScene" uid="uid://c0dhrntss3l6y" path="res://scenes/entities/little_guy.tscn" id="2_xl1yy"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl1yy"]
-size = Vector2(1157, 20)
+[sub_resource type="TileMapPattern" id="TileMapPattern_jlx5v"]
+tile_data = PackedInt32Array(0, 262146, 0, 65536, 262146, 1, 131072, 262146, 2)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_7378n"]
+tile_data = PackedInt32Array(0, 131074, 0, 1, 196610, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7378n"]
+texture = ExtResource("1_jlx5v")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0 = 0
+4:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:1/0 = 0
+4:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:2/0 = 0
+4:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_f38oy"]
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 3
+physics_layer_1/collision_layer = 16
+physics_layer_1/collision_mask = 3
+sources/2 = SubResource("TileSetAtlasSource_7378n")
+pattern_0 = SubResource("TileMapPattern_jlx5v")
+pattern_1 = SubResource("TileMapPattern_7378n")
 
 [node name="TestWorld" type="Node2D" unique_id=743753521]
 
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1561561839]
+tile_map_data = PackedByteArray("AAATAAsAAgAAAAAAAAASAAsAAgAAAAAAAAARAAsAAgAAAAAAAAAQAAsAAgAAAAAAAAAPAAsAAgAAAAAAAAAOAAsAAgAAAAAAAAANAAsAAgAAAAAAAAAMAAsAAgAAAAAAAAALAAsAAgAAAAAAAAAKAAsAAgAAAAAAAAAJAAsAAgAAAAAAAAAIAAsAAgAAAAAAAAAHAAsAAgAAAAAAAAAGAAsAAgAAAAAAAAAFAAsAAgAAAAAAAAAEAAsAAgAAAAAAAAADAAsAAgAAAAAAAAACAAsAAgAAAAAAAAABAAsAAgAAAAAAAAAAAAsAAgAAAAAAAAAAAAAAAgABAAAAAAABAAAAAgABAAAAAAACAAAAAgABAAAAAAADAAAAAgABAAAAAAAEAAAAAgABAAAAAAAFAAAAAgABAAAAAAAGAAAAAgABAAAAAAAHAAAAAgABAAAAAAAIAAAAAgABAAAAAAAJAAAAAgABAAAAAAAKAAAAAgABAAAAAAALAAAAAgABAAAAAAAMAAAAAgABAAAAAAANAAAAAgABAAAAAAAOAAAAAgABAAAAAAAPAAAAAgABAAAAAAAQAAAAAgABAAAAAAARAAAAAgABAAAAAAASAAAAAgABAAAAAAATAAAAAgABAAAAAAATAAEAAgABAAAAAAATAAIAAgABAAAAAAATAAMAAgABAAAAAAATAAQAAgABAAAAAAATAAUAAgABAAAAAAATAAYAAgABAAAAAAATAAcAAgABAAAAAAATAAgAAgABAAAAAAATAAkAAgABAAAAAAATAAoAAgABAAAAAAAAAAoAAgABAAAAAAAAAAkAAgABAAAAAAAAAAgAAgABAAAAAAAAAAcAAgABAAAAAAAAAAYAAgABAAAAAAAAAAUAAgABAAAAAAAAAAIAAgABAAAAAAAAAAEAAgABAAAAAAAPAAoAAgABAAAAAAAPAAgAAgABAAAAAAAPAAcAAgABAAAAAAAQAAcAAgABAAAAAAARAAcAAgABAAAAAAASAAcAAgABAAAAAAABAAUAAgABAAAAAAACAAUAAgABAAAAAAADAAUAAgABAAAAAAAEAAUAAgABAAAAAAAFAAUAAgABAAAAAAAGAAUAAgABAAAAAAAHAAUAAgABAAAAAAAIAAUAAgABAAAAAAAJAAUAAgABAAAAAAANAAMAAgABAAAAAAAOAAMAAgABAAAAAAAPAAMAAgABAAAAAAAQAAMAAgABAAAAAAARAAMAAgABAAAAAAASAAMAAgABAAAAAAAPAAkAAgABAAAAAAA=")
+tile_set = SubResource("TileSet_f38oy")
+
 [node name="Player" parent="." unique_id=918396539 instance=ExtResource("1_tjl6x")]
-position = Vector2(401, 380)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=84169839]
-position = Vector2(5, 503)
-collision_layer = 8
-collision_mask = 0
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1350521205]
-position = Vector2(568.5, 0)
-shape = SubResource("RectangleShape2D_xl1yy")
-
-[node name="LittleGuy" parent="." unique_id=1360872132 node_paths=PackedStringArray("player") instance=ExtResource("2_xl1yy")]
-position = Vector2(507, 246)
-player = NodePath("../Player")
+position = Vector2(41, 165)
 
 [node name="LittleGuy2" parent="." unique_id=164060178 node_paths=PackedStringArray("player") instance=ExtResource("2_xl1yy")]
-position = Vector2(688, 309)
+position = Vector2(287, 97)
 player = NodePath("../Player")
 
-[node name="LittleGuy3" parent="." unique_id=900032295 node_paths=PackedStringArray("player") instance=ExtResource("2_xl1yy")]
-position = Vector2(205, 209)
+[node name="LittleGuy" parent="." unique_id=1360872132 node_paths=PackedStringArray("player") instance=ExtResource("2_xl1yy")]
+position = Vector2(167, 159)
 player = NodePath("../Player")

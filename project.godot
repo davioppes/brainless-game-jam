@@ -15,6 +15,13 @@ run/main_scene="uid://8y84jid88owd"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=192
+window/size/mode=2
+window/stretch/mode="canvas_items"
+
 [input]
 
 move_right={
@@ -43,9 +50,14 @@ pickup={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
 ]
 }
-drop={
+throw={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":81,"key_label":0,"unicode":113,"location":0,"echo":false,"script":null)
+]
+}
+change_action={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":114,"location":0,"echo":false,"script":null)
 ]
 }
 
@@ -54,7 +66,8 @@ drop={
 2d_physics/layer_1="player"
 2d_physics/layer_2="entities"
 2d_physics/layer_3="platform"
-2d_physics/layer_4="level"
+2d_physics/layer_4="floor"
+2d_physics/layer_5="wall"
 
 [physics]
 

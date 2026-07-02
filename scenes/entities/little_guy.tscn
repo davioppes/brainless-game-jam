@@ -1,26 +1,38 @@
 [gd_scene format=3 uid="uid://c0dhrntss3l6y"]
 
 [ext_resource type="Script" uid="uid://74hqhiki7yps" path="res://scenes/entities/little_guy.gd" id="1_o56dn"]
+[ext_resource type="PackedScene" uid="uid://7dumntobfdfa" path="res://scenes/world/wall.tscn" id="2_0ueai"]
+[ext_resource type="PackedScene" uid="uid://46qnflxsgv1q" path="res://scenes/world/platform.tscn" id="3_tcgsf"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aw3y0"]
-size = Vector2(40, 40)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ueai"]
+radius = 7.0
+height = 16.0
 
 [node name="LittleGuy" type="RigidBody2D" unique_id=164060178]
 collision_layer = 2
-collision_mask = 10
+collision_mask = 26
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 50
 script = ExtResource("1_o56dn")
+wall = ExtResource("2_0ueai")
+platform = ExtResource("3_tcgsf")
 metadata/_edit_group_ = true
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1032299538]
-
-[node name="ColorRect" type="ColorRect" parent="Area2D" unique_id=380372098]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1814861120]
-position = Vector2(20, 20)
-shape = SubResource("RectangleShape2D_aw3y0")
+[node name="ColorRect" type="ColorRect" parent="." unique_id=380372098]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1849759469]
-position = Vector2(20, 20)
-shape = SubResource("RectangleShape2D_aw3y0")
+shape = SubResource("CapsuleShape2D_0ueai")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
