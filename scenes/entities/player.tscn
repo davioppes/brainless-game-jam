@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bv7cl8gn4gjec" path="res://scenes/entities/player.gd" id="1_08t41"]
 [ext_resource type="Script" uid="uid://bq5wyh6svsk4i" path="res://scenes/entities/PickupAreaCollisionShape2D.gd" id="3_1ie0h"]
+[ext_resource type="Texture2D" uid="uid://bbmuen7hwqjfp" path="res://assets/arrow.png" id="3_42nxq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_08t41"]
 size = Vector2(16, 16)
@@ -10,8 +11,15 @@ size = Vector2(16, 16)
 size = Vector2(10.875, 8)
 
 [node name="Player" type="CharacterBody2D" unique_id=918396539]
-collision_mask = 28
+collision_mask = 60
 script = ExtResource("1_08t41")
+
+[node name="ArrowPointing" type="Sprite2D" parent="." unique_id=1556842914]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -18)
+texture = ExtResource("3_42nxq")
+offset = Vector2(15, 0)
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=360265342]
 offset_left = -8.0
@@ -29,13 +37,12 @@ position = Vector2(0, -18)
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=1090318311]
 unique_name_in_owner = true
-position = Vector2(16, 4)
+position = Vector2(14, 4)
 collision_mask = 2
 script = ExtResource("3_1ie0h")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=1025688479]
-position = Vector2(-1.4375, 0)
 shape = SubResource("RectangleShape2D_1ie0h")
 
 [connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]

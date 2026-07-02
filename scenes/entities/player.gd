@@ -4,6 +4,7 @@ class_name Player
 @onready var pickup_area: Area2D = %PickupArea
 @onready var player_collision_shape: CollisionShape2D = %PlayerCollisionShape
 @onready var pickup_position: Marker2D = %PickupPosition
+@onready var arrow_pointing: Sprite2D = %ArrowPointing
 
 var player_height: int
 var current_facing_direction: int
@@ -23,7 +24,16 @@ func _ready() -> void:
 	pickup_area.facing_left = Vector2(-pickup_area.position.x,pickup_area.position.y)
 
 
+func _process(delta: float) -> void:
+	arrow_pointing.look_at(get_global_mouse_position())
+	
+	if Input.is_action_just_pressed("reset_level"):
+		get_tree().change_scene_to_file("res://scenes/world/test_world.tscn")
+
+
 func _physics_process(delta: float) -> void:
+	
+	
 	
 	if Input.is_action_just_pressed("pickup"):
 		if pickup_object and not currently_picked_up and seedling != null:
@@ -64,6 +74,7 @@ func throw():
 	picked_up_seedling.throw()
 	currently_picked_up = false
 	picked_up_seedling = null
+	arrow_pointing.visible = false
 
 
 func change_action():
@@ -71,12 +82,14 @@ func change_action():
 
 
 func pickup():
+	arrow_pointing.visible = true
 	picked_up_seedling = seedling
 	picked_up_seedling.follow_player()
 	currently_picked_up = true
 
 
 func drop():
+	arrow_pointing.visible = false
 	print(picked_up_seedling.global_position)
 	picked_up_seedling.drop()
 	currently_picked_up = false
@@ -85,11 +98,13 @@ func drop():
 
 func _on_pickup_area_body_entered(body: Node2D) -> void:
 	if body is little_guy:
+		body.modulate = Color(0.75, 0.73, 0.0, 0.576)
 		pickup_object = true
 		seedling = body
 
 
 func _on_pickup_area_body_exited(body: Node2D) -> void:
 	if body is little_guy:
+		body.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		pickup_object = false
 		seedling = null

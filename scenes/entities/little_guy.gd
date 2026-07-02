@@ -44,7 +44,11 @@ func throw():
 	freeze = false
 	
 	# Gives a boost/impulse to the object
-	apply_impulse(Vector2((200 + abs(player.velocity.x)) * player.current_facing_direction,-200),position)
+	
+	var normalized_mouse_direction = get_viewport().get_mouse_position() - global_position
+	print(normalized_mouse_direction)
+	
+	apply_impulse(normalized_mouse_direction.normalized() * 300,position)
 
 
 func change_action():

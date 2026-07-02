@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cqbg71yblc2j5"]
+
+[ext_resource type="Script" uid="uid://7k884yx6cvkb" path="res://scenes/world/button.gd" id="1_2j4lw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bfaev"]
+size = Vector2(30, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2j4lw"]
+size = Vector2(32, 8)
+
+[node name="Button" type="StaticBody2D" unique_id=1723256387]
+collision_layer = 32
+collision_mask = 11
+script = ExtResource("1_2j4lw")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1713788056]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_bfaev")
+
+[node name="ColorRect" type="ColorRect" parent="CollisionShape2D" unique_id=659219977]
+unique_name_in_owner = true
+offset_left = -15.0
+offset_top = -3.0
+offset_right = 15.0
+offset_bottom = 3.0
+
+[node name="PressArea" type="Area2D" parent="." unique_id=689209083]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PressArea" unique_id=2050115336]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_2j4lw")
+
+[connection signal="body_entered" from="PressArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="PressArea" to="." method="_on_area_2d_body_exited"]
