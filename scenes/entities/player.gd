@@ -14,6 +14,7 @@ var currently_picked_up: bool = false # If object is currently picked up
 var seedling: Node2D = null # Current object that is picked up
 var picked_up_seedling: little_guy = null
 
+var wind_velocity: Vector2 = Vector2.ZERO
 const SPEED = 100.0
 const JUMP_VELOCITY = -300.0
 
@@ -66,6 +67,7 @@ func _physics_process(delta: float) -> void:
 		pickup_area.position = pickup_area.facing_right
 
 	velocity.x = direction * SPEED
+	velocity += wind_velocity
 
 	move_and_slide()
 

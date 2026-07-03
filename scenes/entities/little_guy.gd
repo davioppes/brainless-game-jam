@@ -1,28 +1,42 @@
+@tool
 extends RigidBody2D
 class_name little_guy
 
 @export var wall: PackedScene
 @export var platform: PackedScene
 @export var player: Player
+@export var action_state: ActionState
 
 enum State {FOLLOW, FLYING, DROPPED}
 enum ActionState {PLANT, ROLL}
 
 # TileMap locations for tiles
-var floor_atlas: Vector2i = Vector2i(0,0)
-var wall_atlas: Vector2i = Vector2i(1,0)
+var floor_atlas: Vector2i = Vector2i(1,0)
+var wall_atlas: Vector2i = Vector2i(2,0)
 
 var current_state: State = State.DROPPED
-var action_state: ActionState = ActionState.ROLL
+#var action_state: ActionState = ActionState.ROLL
 var original_parent: Node2D = null
 var collision_position: Vector2 = Vector2.ZERO
 var collision_normal_local: Vector2 = Vector2.ZERO
 
+var wind_velocity: Vector2 = Vector2.ZERO
+
 func _ready() -> void:
 	original_parent = get_parent()
-	$ColorRect.color = Color(0.667, 0.383, 0.0, 1.0)
+	match action_state:
+		ActionState.ROLL:
+			$ColorRect.color = Color(0.667, 0.383, 0.0, 1.0)
+		ActionState.PLANT:
+			$ColorRect.color = Color(0.0, 0.562, 0.106, 1.0)
 
-	
+func _process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		match action_state:
+			ActionState.ROLL:
+				$ColorRect.color = Color(0.667, 0.383, 0.0, 1.0)
+			ActionState.PLANT:
+				$ColorRect.color = Color(0.0, 0.562, 0.106, 1.0)
 	
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if current_state == State.FLYING and get_contact_count() > 0: # Avoids error when there are no collisions
@@ -32,8 +46,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	pass
-	#print(current_state)
+	apply_force(wind_velocity * 5)
 
 
 func throw():
@@ -44,7 +57,6 @@ func throw():
 	freeze = false
 	
 	# Gives a boost/impulse to the object
-	
 	var normalized_mouse_direction = get_viewport().get_mouse_position() - global_position
 	print(normalized_mouse_direction)
 	

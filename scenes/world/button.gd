@@ -1,18 +1,19 @@
-extends StaticBody2D
+extends Area2D
+class_name LevelButton
 
-var is_pressed: bool = false
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+signal disable_door
 
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if not is_pressed:
-		is_pressed = true
-		collision_shape_2d.scale.y = collision_shape_2d.scale.y * 0.5
-		print("pressed")
+@export var connecting_door: Door
 
 
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	if is_pressed:
-		collision_shape_2d.scale.y = 1
-		print("release")
-		is_pressed = false
+func _ready() -> void:
+	disable_door.connect(connecting_door.disable)
+
+
+func _on_body_entered(_body: Node2D) -> void:
+	disable_door.emit()
+	$AnimationPlayer.play("press")
+
+
+func _on_body_exited(_body: Node2D) -> void:
+	$AnimationPlayer.play("release")
