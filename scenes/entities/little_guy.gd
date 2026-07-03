@@ -100,17 +100,19 @@ func _on_body_entered(body: Node) -> void:
 			var tile_collision_position = Vector2i(collision_position) / 16
 			if collision_normal_local.x == 1.0:
 				tile_collision_position.x -= 1
-				
-			var atlas_coordinates: Vector2i = body.get_cell_atlas_coords(tile_collision_position)
-			if action_state == ActionState.PLANT and atlas_coordinates == floor_atlas:
-				var new_wall: StaticBody2D = wall.instantiate()
-				new_wall.global_position = Vector2(global_position.x,collision_position.y) #+ Vector2(0,($CollisionShape2D.shape.size.y / 2))
-				original_parent.call_deferred("add_child",new_wall)
-				queue_free()
-			elif action_state == ActionState.PLANT and atlas_coordinates == wall_atlas:
-				var new_platform: StaticBody2D = platform.instantiate()
-				
-				# Spawns the platform on the wall, moving the x position right or left by half its size using the normal
-				new_platform.global_position = Vector2(collision_position.x + (new_platform.get_node("CollisionShape2D").shape.size.x / 2 * collision_normal_local.x),global_position.y)
-				original_parent.call_deferred("add_child",new_platform)
-				queue_free()
+			
+			#var atlas_coordinates: Vector2i = body.get_cell_atlas_coords(tile_collision_position)
+			var tile_data: TileData = body.get_cell_tile_data(tile_collision_position)
+			if tile_data != null:
+				if action_state == ActionState.PLANT and tile_data.get_custom_data("floor") == true and collision_normal_local.y != 0:
+					var new_wall: StaticBody2D = wall.instantiate()
+					new_wall.global_position = Vector2(global_position.x,collision_position.y) #+ Vector2(0,($CollisionShape2D.shape.size.y / 2))
+					original_parent.call_deferred("add_child",new_wall)
+					queue_free()
+				elif action_state == ActionState.PLANT and collision_normal_local.x != 0:
+					var new_platform: StaticBody2D = platform.instantiate()
+					
+					# Spawns the platform on the wall, moving the x position right or left by half its size using the normal
+					new_platform.global_position = Vector2(collision_position.x + (new_platform.get_node("CollisionShape2D").shape.size.x / 2 * collision_normal_local.x),global_position.y)
+					original_parent.call_deferred("add_child",new_platform)
+					queue_free()
