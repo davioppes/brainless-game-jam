@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dcy3ksu6p2hf2"]
+
+[ext_resource type="Script" uid="uid://dj2qi58lhrwm" path="res://scenes/world/level_components/level_finish_area.gd" id="1_i7lw5"]
+
+[node name="LevelFinishArea" type="Area2D" unique_id=1037168943]
+script = ExtResource("1_i7lw5")

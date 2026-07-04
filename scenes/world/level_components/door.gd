@@ -13,4 +13,4 @@ func _process(delta: float) -> void:
 
 func disable():
 	$CollisionShape2D.set_deferred("disabled",true)
-	$ColorRect.modulate = Color(0.0, 0.216, 0.0, 0.549)
+	$ColorRect.modulate = Color(0.0, 0.0, 0.0, 0.529)

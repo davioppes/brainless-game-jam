@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://7dumntobfdfa"]
+
+[ext_resource type="Script" uid="uid://bh231eg2srs2x" path="res://scenes/world/level_components/wall.gd" id="1_4ps5a"]
+[ext_resource type="Texture2D" uid="uid://cq1xo5tgi5gia" path="res://assets/wall_bush.png" id="2_jo8hy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ko5tb"]
+size = Vector2(16, 32)
+
+[node name="Wall" type="StaticBody2D" unique_id=673232244]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_4ps5a")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1267176679]
+position = Vector2(0, -16)
+texture = ExtResource("2_jo8hy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=948326835]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_ko5tb")

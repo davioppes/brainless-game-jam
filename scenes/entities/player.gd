@@ -5,9 +5,14 @@ class_name Player
 @onready var player_collision_shape: CollisionShape2D = %PlayerCollisionShape
 @onready var pickup_position: Marker2D = %PickupPosition
 @onready var arrow_pointing: Sprite2D = %ArrowPointing
+@onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
+
+@export var spawn_point: Marker2D
 
 var player_height: int
 var current_facing_direction: int
+enum MovementState {IDLE,WALKING,PICKUP,JUMP}
+var current_movement_state: MovementState = MovementState.IDLE
 
 var pickup_object: bool = true # Able to pickup object or not
 var currently_picked_up: bool = false # If object is currently picked up
@@ -15,10 +20,16 @@ var seedling: Node2D = null # Current object that is picked up
 var picked_up_seedling: little_guy = null
 
 var wind_velocity: Vector2 = Vector2.ZERO
+var wind_linger_velocity: Vector2 = Vector2.ZERO
 const SPEED = 100.0
 const JUMP_VELOCITY = -300.0
+var reduce_jump_height: float = 0.75
+
 
 func _ready() -> void:
+	if spawn_point:
+		global_position = spawn_point.global_position
+	
 	player_height = player_collision_shape.shape.size.y
 	print(player_height)
 	pickup_area.facing_right = pickup_area.position
@@ -29,13 +40,10 @@ func _process(delta: float) -> void:
 	arrow_pointing.look_at(get_global_mouse_position())
 	
 	if Input.is_action_just_pressed("reset_level"):
-		get_tree().change_scene_to_file("res://scenes/world/test_world.tscn")
+		get_tree().reload_current_scene()
 
 
 func _physics_process(delta: float) -> void:
-	
-	
-	
 	if Input.is_action_just_pressed("pickup"):
 		if pickup_object and not currently_picked_up and seedling != null:
 			pickup()
@@ -53,23 +61,63 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	else:
+		wind_linger_velocity = Vector2.ZERO
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = JUMP_VELOCITY 
 	if Input.is_action_pressed("move_left"):
 		direction = -1
 		current_facing_direction = direction
 		pickup_area.position = pickup_area.facing_left
+		
+		current_movement_state = MovementState.WALKING
+		animated_sprite_2d.flip_h = true
 	if Input.is_action_pressed("move_right"):
 		direction = 1
 		current_facing_direction = direction
 		pickup_area.position = pickup_area.facing_right
-
+		
+		current_movement_state = MovementState.WALKING
+		animated_sprite_2d.flip_h = false
+	
 	velocity.x = direction * SPEED
 	velocity += wind_velocity
-
+	velocity += wind_linger_velocity
+	
+	
+	if wind_linger_velocity.length() > 0:
+		wind_linger_velocity = wind_linger_velocity.move_toward(Vector2.ZERO,delta * 30)
+		print(wind_linger_velocity)
+	
+	
+	if direction == 0:
+		current_movement_state = MovementState.IDLE
+	
+	play_animations()
+	
 	move_and_slide()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_released("jump"):
+		if velocity.y < 0.0:
+			velocity.y *= reduce_jump_height
+
+
+func play_animations():
+	match current_movement_state:
+		MovementState.WALKING:
+			if currently_picked_up:
+				animated_sprite_2d.play("walking_pickup")
+			else:
+				animated_sprite_2d.play("walking")
+		MovementState.IDLE:
+			if currently_picked_up:
+				animated_sprite_2d.play("idle_pickup")
+			else:
+				animated_sprite_2d.play("idle")
 
 
 func throw():

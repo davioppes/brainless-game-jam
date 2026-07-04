@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var wind_speed: Vector2 = Vector2(100,100)
+@export var wind_speed: Vector2
 @export var wind_origin: Vector2 = Vector2.ZERO
 @export var direction: Vector2 = Vector2.RIGHT # Set the direction of the raycast
 @export var collision_shape_size: Vector2 = Vector2.ZERO
@@ -70,11 +70,15 @@ func check_platform_between(object_body: PhysicsBody2D) -> bool:
 
 func remove_wind_tiles():
 	
-	# Loops through all the tiles from the point of collision to the end of the collision area (raycast target point)
-	for i in range(int((ray_cast_2d.global_position.x + original_target_position.x) / 16),int(collision_point.x / 16), -1 * direction.x):
-		wind_layer.set_cell(Vector2i(i,int(collision_point.y / 16)),3,Vector2i(0,1))
-		wind_layer.set_cell(Vector2i(i,int(collision_point.y / 16) - 1),3,Vector2i(0,1))
-
+	if direction.x == 0:
+		# Loops through all the tiles from the point of collision to the end of the collision area (raycast target point)
+		for i in range(int((ray_cast_2d.global_position.y + original_target_position.y) / 16),int(collision_point.y / 16), -1 * direction.y):
+			wind_layer.set_cell(Vector2i(int(collision_point.y / 16),i),3,Vector2i(0,1))
+			wind_layer.set_cell(Vector2i(int(collision_point.y / 16) - 1,i),3,Vector2i(0,1))
+	else:
+		for i in range(int((ray_cast_2d.global_position.x + original_target_position.x) / 16),int(collision_point.x / 16), -1 * direction.x):
+			wind_layer.set_cell(Vector2i(i,int(collision_point.y / 16)),3,Vector2i(0,1))
+			wind_layer.set_cell(Vector2i(i,int(collision_point.y / 16) - 1),3,Vector2i(0,1))
 func _object_entered(body: PhysicsBody2D):
 	object_inside_wind = true
 	current_objects_inside.append(body)
@@ -93,3 +97,5 @@ func _object_exited(body: PhysicsBody2D):
 		body.wind_velocity = Vector2.ZERO
 	else:
 		body.wind_velocity -= wind_speed * direction
+		if body is Player:
+			body.wind_linger_velocity += wind_speed * direction

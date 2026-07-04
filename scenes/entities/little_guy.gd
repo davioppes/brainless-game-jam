@@ -2,6 +2,8 @@
 extends RigidBody2D
 class_name little_guy
 
+@onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
+
 @export var wall: PackedScene
 @export var platform: PackedScene
 @export var player: Player
@@ -26,17 +28,17 @@ func _ready() -> void:
 	original_parent = get_parent()
 	match action_state:
 		ActionState.ROLL:
-			$ColorRect.color = Color(0.667, 0.383, 0.0, 1.0)
+			animated_sprite_2d.play("roll")
 		ActionState.PLANT:
-			$ColorRect.color = Color(0.0, 0.562, 0.106, 1.0)
+			animated_sprite_2d.play("plant")
 
-func _process(_delta: float) -> void:
-	if Engine.is_editor_hint():
-		match action_state:
-			ActionState.ROLL:
-				$ColorRect.color = Color(0.667, 0.383, 0.0, 1.0)
-			ActionState.PLANT:
-				$ColorRect.color = Color(0.0, 0.562, 0.106, 1.0)
+#func _process(_delta: float) -> void:
+	#if Engine.is_editor_hint():
+		#match action_state:
+			#ActionState.ROLL:
+				#animated_sprite_2d.play("roll")
+			#ActionState.PLANT:
+				#animated_sprite_2d.play("plant")d
 	
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if current_state == State.FLYING and get_contact_count() > 0: # Avoids error when there are no collisions
@@ -67,10 +69,10 @@ func change_action():
 	#print("action state: " + str(action_state))
 	if action_state == ActionState.ROLL:
 		action_state = ActionState.PLANT
-		$ColorRect.color = Color(0.0, 0.562, 0.106, 1.0)
+		animated_sprite_2d.play("plant")
 	else:
 		action_state = ActionState.ROLL
-		$ColorRect.color = Color(0.667, 0.383, 0.0, 1.0)
+		animated_sprite_2d.play("roll")
 
 
 func follow_player():
@@ -111,6 +113,8 @@ func _on_body_entered(body: Node) -> void:
 					queue_free()
 				elif action_state == ActionState.PLANT and collision_normal_local.x != 0:
 					var new_platform: StaticBody2D = platform.instantiate()
+					if collision_normal_local.x > 0:
+						new_platform.get_node("Sprite2D").flip_h = true
 					
 					# Spawns the platform on the wall, moving the x position right or left by half its size using the normal
 					new_platform.global_position = Vector2(collision_position.x + (new_platform.get_node("CollisionShape2D").shape.size.x / 2 * collision_normal_local.x),global_position.y)

@@ -1,15 +1,11 @@
 [gd_scene format=3 uid="uid://cs6sw5meiurg3"]
 
-[ext_resource type="Script" uid="uid://b33so7vhy2un2" path="res://scenes/world/wind_area.gd" id="1_nt1mi"]
+[ext_resource type="Script" uid="uid://b33so7vhy2un2" path="res://scenes/world/level_components/wind_area.gd" id="1_nt1mi"]
 
 [node name="WindArea" type="Area2D" unique_id=660522797]
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_nt1mi")
-wind_speed = null
-wind_origin = null
-direction = null
-collision_shape_size = null
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=54667978]
 collision_mask = 20

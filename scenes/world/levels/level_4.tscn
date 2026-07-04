@@ -1,0 +1,122 @@
+[gd_scene format=4 uid="uid://cgsq2wvqw6ndv"]
+
+[ext_resource type="PackedScene" uid="uid://b7fn4jw5yyawh" path="res://scenes/world/background.tscn" id="1_baxxy"]
+[ext_resource type="TileSet" uid="uid://dhs4gnvaj8muv" path="res://resources/level_tileset.tres" id="2_02aya"]
+[ext_resource type="PackedScene" uid="uid://dc4rxej3dpxsi" path="res://scenes/entities/player.tscn" id="3_86oje"]
+[ext_resource type="PackedScene" uid="uid://c0dhrntss3l6y" path="res://scenes/entities/little_guy.tscn" id="4_halfc"]
+[ext_resource type="PackedScene" uid="uid://cqbg71yblc2j5" path="res://scenes/world/level_components/button.tscn" id="5_n4r6m"]
+[ext_resource type="PackedScene" uid="uid://cs6sw5meiurg3" path="res://scenes/world/level_components/wind_area.tscn" id="6_piqdq"]
+[ext_resource type="PackedScene" uid="uid://dcy3ksu6p2hf2" path="res://scenes/world/level_components/level_finish_area.tscn" id="7_743qa"]
+[ext_resource type="PackedScene" uid="uid://cl83lfeqt535t" path="res://scenes/world/level_components/door.tscn" id="8_vepvr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_baxxy"]
+size = Vector2(192, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7emex"]
+size = Vector2(32, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1cr77"]
+size = Vector2(64, 16)
+
+[node name="Level_2" type="Node2D" unique_id=557642134]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1698463358]
+offset_right = 550.0
+offset_bottom = 330.0
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1661819138]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(550, 330)
+render_target_update_mode = 4
+
+[node name="Level" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=380846788]
+
+[node name="Background" parent="SubViewportContainer/SubViewport/Level" unique_id=1244149852 instance=ExtResource("1_baxxy")]
+
+[node name="BackgroundLayer" type="TileMapLayer" parent="SubViewportContainer/SubViewport/Level" unique_id=584860114]
+modulate = Color(0.50928617, 0.50928617, 0.50928617, 1)
+tile_set = ExtResource("2_02aya")
+
+[node name="SpawnPoint" type="Marker2D" parent="SubViewportContainer/SubViewport/Level" unique_id=1043033357]
+position = Vector2(112, 256)
+
+[node name="Player" parent="SubViewportContainer/SubViewport/Level" unique_id=918396539 node_paths=PackedStringArray("spawn_point") instance=ExtResource("3_86oje")]
+position = Vector2(128, 224)
+spawn_point = NodePath("../SpawnPoint")
+
+[node name="LittleGuy" parent="SubViewportContainer/SubViewport/Level" unique_id=164060178 node_paths=PackedStringArray("player") instance=ExtResource("4_halfc")]
+position = Vector2(373, 264)
+player = NodePath("../Player")
+action_state = 1
+
+[node name="LittleGuy2" parent="SubViewportContainer/SubViewport/Level" unique_id=1552890701 node_paths=PackedStringArray("player") instance=ExtResource("4_halfc")]
+position = Vector2(326, 201)
+player = NodePath("../Player")
+
+[node name="LittleGuy3" parent="SubViewportContainer/SubViewport/Level" unique_id=2067727897 node_paths=PackedStringArray("player") instance=ExtResource("4_halfc")]
+position = Vector2(120, 140)
+player = NodePath("../Player")
+
+[node name="LittleGuy4" parent="SubViewportContainer/SubViewport/Level" unique_id=318318907 node_paths=PackedStringArray("player") instance=ExtResource("4_halfc")]
+position = Vector2(151, 73)
+player = NodePath("../Player")
+
+[node name="Button" parent="SubViewportContainer/SubViewport/Level" unique_id=1721090813 node_paths=PackedStringArray("connecting_door") instance=ExtResource("5_n4r6m")]
+position = Vector2(208, 224)
+connecting_door = NodePath("../Door")
+
+[node name="Door" parent="SubViewportContainer/SubViewport/Level" unique_id=520072138 instance=ExtResource("8_vepvr")]
+position = Vector2(304, 208)
+height = 3
+width = 1
+
+[node name="WindArea" parent="SubViewportContainer/SubViewport/Level" unique_id=660522797 node_paths=PackedStringArray("player", "wind_layer") instance=ExtResource("6_piqdq")]
+position = Vector2(448, 144)
+wind_speed = Vector2(120, 100)
+direction = Vector2(-1, 0)
+player = NodePath("../Player")
+wind_layer = NodePath("../LevelLayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/Level/WindArea" unique_id=2133276472]
+position = Vector2(-96, 0)
+shape = SubResource("RectangleShape2D_baxxy")
+
+[node name="WindArea2" parent="SubViewportContainer/SubViewport/Level" unique_id=306948599 node_paths=PackedStringArray("player", "wind_layer") instance=ExtResource("6_piqdq")]
+position = Vector2(256, 0)
+wind_speed = Vector2(100, 20)
+direction = Vector2(0, 1)
+player = NodePath("../Player")
+wind_layer = NodePath("../LevelLayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/Level/WindArea2" unique_id=760383078]
+position = Vector2(0, 48)
+shape = SubResource("RectangleShape2D_7emex")
+
+[node name="LevelFinishArea" parent="SubViewportContainer/SubViewport/Level" unique_id=1037168943 instance=ExtResource("7_743qa")]
+position = Vector2(-96, -64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/Level/LevelFinishArea" unique_id=1968548829]
+position = Vector2(512, 56)
+shape = SubResource("RectangleShape2D_1cr77")
+
+[node name="LevelLayer" type="TileMapLayer" parent="SubViewportContainer/SubViewport/Level" unique_id=993736196]
+tile_map_data = PackedByteArray("AAAFABEAAwAHAAUAAAAIABEAAwAHAAUAAAAEABEAAwAHAAUAAAAEABAAAwAHAAUAAAAEAA8AAwAHAAUAAAAEAA4AAwAHAAUAAAAEAA0AAwAHAAUAAAAFABAAAwAHAAUAAAAFAA8AAwAHAAUAAAAFAA4AAwAHAAUAAAAFAA0AAwAHAAUAAAAFAAwAAwAHAAUAAAAEAAwAAwAHAAUAAAAEAAsAAwAHAAUAAAAEAAoAAwAHAAUAAAAFAAsAAwAHAAUAAAAFAAoAAwAHAAUAAAAJABEAAwAHAAUAAAAKABEAAwAHAAUAAAALABEAAwAHAAUAAAAMABEAAwAHAAUAAAANABEAAwAHAAUAAAAOABEAAwAHAAUAAAAPABEAAwAHAAUAAAAQABEAAwAHAAUAAAARABEAAwAHAAUAAAASABEAAwAHAAUAAAATABEAAwAHAAUAAAAUABEAAwAHAAUAAAAVABEAAwAHAAUAAAAWABEAAwAHAAUAAAAXABEAAwAHAAUAAAAYABEAAwAHAAUAAAAbABEAAwAHAAUAAAAaABEAAwAHAAUAAAAZABEAAwAHAAUAAAAbABAAAwAHAAUAAAAbAA8AAwAHAAUAAAAbAA4AAwAHAAUAAAAbAA0AAwAHAAUAAAAbAAwAAwAHAAUAAAAbAAsAAwAHAAUAAAAbAAoAAwAHAAUAAAAYAAoAAwAHAAUAAAAYAAsAAwAHAAUAAAAXAAsAAwAHAAUAAAAWAAsAAwAHAAUAAAAVAAsAAwAHAAUAAAAUAAsAAwAHAAUAAAAUAAoAAwAHAAUAAAATAAoAAwAHAAUAAAASAAoAAwAHAAUAAAAVAAoAAwAHAAUAAAAWAAoAAwAHAAUAAAAXAAoAAwAHAAUAAAATAAsAAwAHAAUAAAASAAsAAwAHAAUAAAALAAwAAwAHAAUAAAALAA0AAwAHAAUAAAALAA4AAwAHAAUAAAAMAA4AAwAHAAUAAAANAA4AAwAHAAUAAAAaAA4AAwAHAAUAAAAZAA4AAwAHAAUAAAASAAwAAwAHAAUAAAAWAAwAAwAHAAUAAAASAA0AAwAHAAUAAAAWAA0AAwAHAAUAAAAOAA4AAwAHAAUAAAAOAA0AAwAHAAUAAAAOAAwAAwAHAAUAAAAGAAoAAwAHAAUAAAAHAAoAAwAHAAUAAAAHAAsAAwAHAAUAAAAGAAsAAwAHAAUAAAAEAAkAAwAHAAUAAAAEAAgAAwAHAAUAAAAEAAcAAwAHAAUAAAAEAAYAAwAHAAUAAAAEAAUAAwAHAAUAAAAEAAQAAwAHAAUAAAAEAAMAAwAHAAUAAAAFAAgAAwAHAAUAAAAFAAcAAwAHAAUAAAAFAAYAAwAHAAUAAAAFAAUAAwAHAAUAAAAFAAQAAwAHAAUAAAAFAAMAAwAHAAUAAAAFAAIAAwAHAAUAAAAFAAkAAwAHAAUAAAATAAcAAwAHAAUAAAAUAAcAAwAHAAUAAAAVAAcAAwAHAAUAAAAWAAcAAwAHAAUAAAAXAAcAAwAHAAUAAAAYAAcAAwAHAAUAAAAZAAcAAwAHAAUAAAAaAAcAAwAHAAUAAAAbAAcAAwAHAAUAAAAaAAYAAwAHAAUAAAAZAAYAAwAHAAUAAAAYAAYAAwAHAAUAAAAXAAYAAwAHAAUAAAAWAAYAAwAHAAUAAAAVAAYAAwAHAAUAAAAUAAYAAwAHAAUAAAATAAYAAwAHAAUAAAAWAAUAAwAHAAUAAAAXAAUAAwAHAAUAAAAYAAUAAwAHAAUAAAAYAAQAAwAHAAUAAAAZAAQAAwAHAAUAAAAZAAMAAwAHAAUAAAAZAAIAAwAHAAUAAAAZAAUAAwAHAAUAAAAaAAQAAwAHAAUAAAAaAAMAAwAHAAUAAAAaAAIAAwAHAAUAAAAbAAQAAwAHAAUAAAAbAAUAAwAHAAUAAAAbAAYAAwAHAAUAAAAbAAMAAwAHAAUAAAAbAAIAAwAHAAUAAAAbAAEAAwAHAAUAAAAbAAAAAwAHAAUAAAAaAAAAAwAHAAUAAAAaAAUAAwAHAAUAAAAaAAEAAwAHAAUAAAAGABEAAwADAAAAAAAHABEAAwAEAAAAAAAQAAgAAwAAAAAAAAAQAAkAAwAAAAAAAAARAAkAAwAAAAAAAAARAAgAAwAAAAAAAAASAAgAAwAAAAAAAAASAAkAAwAAAAAAAAATAAkAAwAAAAAAAAATAAgAAwAAAAAAAAAUAAgAAwAAAAAAAAAUAAkAAwAAAAAAAAAVAAkAAwAAAAAAAAAVAAgAAwAAAAAAAAAWAAgAAwAAAAAAAAAWAAkAAwAAAAAAAAAXAAkAAwAAAAAAAAAXAAgAAwAAAAAAAAAYAAgAAwAAAAAAAAAYAAkAAwAAAAAAAAAZAAkAAwAAAAAAAAAZAAgAAwAAAAAAAAAaAAgAAwAAAAAAAAAaAAkAAwAAAAAAAAAbAAgAAwAAAAAAAAAbAAkAAwAAAAAAAAARAAoAAwAHAAUAAAALAAsAAwAHAAUAAAAIAAoAAwAHAAUAAAAIAAsAAwAHAAUAAAAJAAoAAwAHAAUAAAAJAAUAAwAHAAUAAAAJAAYAAwAHAAUAAAAJAAcAAwAHAAUAAAARAAAAAwAHAAUAAAARAAEAAwAHAAUAAAARAAIAAwAHAAUAAAARAAMAAwAHAAUAAAASAAYAAwAHAAUAAAAKAAUAAwAHAAUAAAALAAUAAwAHAAUAAAAPAAAAAwAAAAAAAGAQAAAAAwAAAAAAAGAQAAEAAwAAAAAAAGAPAAEAAwAAAAAAAGAPAAIAAwAAAAAAAGAQAAIAAwAAAAAAAGAPAAMAAwAAAAAAAGAQAAMAAwAAAAAAAGAPAAQAAwAAAAAAAGAQAAQAAwAAAAAAAGAQAAUAAwAAAAAAAGAPAAUAAwAAAAAAAGA=")
+tile_set = ExtResource("2_02aya")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1688091243]
+visible = false
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=758777401]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control" unique_id=1813073573]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="body_entered" from="SubViewportContainer/SubViewport/Level/LevelFinishArea" to="SubViewportContainer/SubViewport/Level/LevelFinishArea" method="_on_body_entered"]

@@ -1,12 +1,33 @@
 [gd_scene format=3 uid="uid://c0dhrntss3l6y"]
 
 [ext_resource type="Script" uid="uid://74hqhiki7yps" path="res://scenes/entities/little_guy.gd" id="1_o56dn"]
-[ext_resource type="PackedScene" uid="uid://7dumntobfdfa" path="res://scenes/world/wall.tscn" id="2_0ueai"]
-[ext_resource type="PackedScene" uid="uid://46qnflxsgv1q" path="res://scenes/world/platform.tscn" id="3_tcgsf"]
+[ext_resource type="PackedScene" uid="uid://7dumntobfdfa" path="res://scenes/world/level_components/wall.tscn" id="2_0ueai"]
+[ext_resource type="PackedScene" uid="uid://46qnflxsgv1q" path="res://scenes/world/level_components/platform.tscn" id="3_tcgsf"]
+[ext_resource type="Texture2D" uid="uid://duh8vi2vthvkb" path="res://assets/seedling/seedling_plant.png" id="4_4dnsl"]
+[ext_resource type="Texture2D" uid="uid://55ulje03275t" path="res://assets/seedling/seedling_roll.png" id="5_2xqpk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tcgsf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_4dnsl")
+}],
+"loop": true,
+"name": &"plant",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_2xqpk")
+}],
+"loop": true,
+"name": &"roll",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ueai"]
-radius = 7.0
-height = 14.0
+radius = 4.0
+height = 10.0
 
 [node name="LittleGuy" type="RigidBody2D" unique_id=164060178]
 collision_layer = 2
@@ -17,23 +38,15 @@ max_contacts_reported = 50
 script = ExtResource("1_o56dn")
 wall = ExtResource("2_0ueai")
 platform = ExtResource("3_tcgsf")
-metadata/_edit_group_ = true
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=380372098]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -5.0
-offset_top = -5.0
-offset_right = 5.0
-offset_bottom = 5.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0.562, 0.106, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=726709576]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_tcgsf")
+animation = &"roll"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1849759469]
+position = Vector2(0, 1)
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_0ueai")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

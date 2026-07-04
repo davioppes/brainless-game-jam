@@ -3,12 +3,79 @@
 [ext_resource type="Script" uid="uid://bv7cl8gn4gjec" path="res://scenes/entities/player.gd" id="1_08t41"]
 [ext_resource type="Script" uid="uid://bq5wyh6svsk4i" path="res://scenes/entities/PickupAreaCollisionShape2D.gd" id="3_1ie0h"]
 [ext_resource type="Texture2D" uid="uid://bbmuen7hwqjfp" path="res://assets/arrow.png" id="3_42nxq"]
+[ext_resource type="Texture2D" uid="uid://t07tk4vxxmju" path="res://assets/walking_animation/walking1.png" id="3_73kkf"]
+[ext_resource type="Texture2D" uid="uid://dnbj3wrksntsu" path="res://assets/walking_animation/walking2.png" id="4_n5sgd"]
+[ext_resource type="Texture2D" uid="uid://b3id6rydjytye" path="res://assets/walking_animation/walking3.png" id="5_5ki56"]
+[ext_resource type="Texture2D" uid="uid://dccruqduh7d5i" path="res://assets/walking_animation/walking4.png" id="6_saib0"]
+[ext_resource type="Texture2D" uid="uid://4aqwafthqucj" path="res://assets/walking_animation/walking_pickup1.png" id="7_ogpgs"]
+[ext_resource type="Texture2D" uid="uid://c01hv0205b3wn" path="res://assets/walking_animation/walking_pickup2.png" id="8_spk56"]
+[ext_resource type="Texture2D" uid="uid://drgvx485djt62" path="res://assets/walking_animation/walking_pickup3.png" id="9_1yk18"]
+[ext_resource type="Texture2D" uid="uid://b6q6uos7wbxfg" path="res://assets/walking_animation/walking_pickup4.png" id="10_b4o2o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yr3on"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_73kkf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5ki56")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_ogpgs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_1yk18")
+}],
+"loop": true,
+"name": &"idle_pickup",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_n5sgd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_73kkf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_saib0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5ki56")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_spk56")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ogpgs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_b4o2o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_1yk18")
+}],
+"loop": true,
+"name": &"walking_pickup",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_08t41"]
-size = Vector2(16, 16)
+size = Vector2(14, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ie0h"]
-size = Vector2(10.875, 8)
+size = Vector2(13.4375, 8)
 
 [node name="Player" type="CharacterBody2D" unique_id=918396539]
 collision_mask = 124
@@ -21,11 +88,10 @@ position = Vector2(0, -18)
 texture = ExtResource("3_42nxq")
 offset = Vector2(15, 0)
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=360265342]
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=959678898]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_yr3on")
+animation = &"walking"
 
 [node name="PlayerCollisionShape" type="CollisionShape2D" parent="." unique_id=530042959]
 unique_name_in_owner = true
@@ -37,12 +103,13 @@ position = Vector2(0, -18)
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=1090318311]
 unique_name_in_owner = true
-position = Vector2(14, 4)
+position = Vector2(5, 4)
 collision_mask = 2
 script = ExtResource("3_1ie0h")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=1025688479]
+position = Vector2(1.28125, 0)
 shape = SubResource("RectangleShape2D_1ie0h")
 
 [connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]

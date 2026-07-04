@@ -1,24 +1,13 @@
 [gd_scene format=3 uid="uid://cqbg71yblc2j5"]
 
-[ext_resource type="Script" uid="uid://7k884yx6cvkb" path="res://scenes/world/button.gd" id="1_2j4lw"]
+[ext_resource type="Script" uid="uid://7k884yx6cvkb" path="res://scenes/world/level_components/button.gd" id="1_2j4lw"]
+[ext_resource type="Texture2D" uid="uid://cxf1kga6ymf1j" path="res://assets/button.png" id="2_bfaev"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2vv0"]
-size = Vector2(28, 5)
+size = Vector2(28, 4.5)
 
 [sub_resource type="Animation" id="Animation_2j4lw"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-15, -6)]
-}
 
 [sub_resource type="Animation" id="Animation_bfaev"]
 resource_name = "press"
@@ -26,14 +15,14 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:position")
+tracks/0/path = NodePath("Sprite2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-15, -6), Vector2(-15, -1)]
+"values": [Vector2(0, 0), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_5w11j"]
@@ -42,7 +31,7 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:position")
+tracks/0/path = NodePath("Sprite2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -64,13 +53,13 @@ collision_layer = 32
 collision_mask = 3
 script = ExtResource("1_2j4lw")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=550633894]
-offset_left = -15.0
-offset_top = -6.0
-offset_right = 15.0
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2138230533]
+position = Vector2(-15.999999, 1.1920929e-07)
+scale = Vector2(1.0714287, 1.2)
+texture = ExtResource("2_bfaev")
+offset = Vector2(14, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=666974426]
-position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_o2vv0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=944040041]
