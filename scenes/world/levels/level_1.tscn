@@ -50,8 +50,9 @@ action_state = 1
 
 [node name="Door" parent="SubViewportContainer/SubViewport/Level" unique_id=520072138 instance=ExtResource("5_cdq6t")]
 position = Vector2(496, 80)
-height = 1
 width = 3
+height = 1
+disabled = false
 
 [node name="Player" parent="SubViewportContainer/SubViewport/Level" unique_id=918396539 node_paths=PackedStringArray("spawn_point") instance=ExtResource("6_q6r71")]
 position = Vector2(240, 224)

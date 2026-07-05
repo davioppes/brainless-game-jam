@@ -111,7 +111,7 @@ func _on_body_entered(body: Node) -> void:
 					new_wall.global_position = Vector2(global_position.x,collision_position.y) #+ Vector2(0,($CollisionShape2D.shape.size.y / 2))
 					original_parent.call_deferred("add_child",new_wall)
 					queue_free()
-				elif action_state == ActionState.PLANT and collision_normal_local.x != 0:
+				elif action_state == ActionState.PLANT and tile_data.get_custom_data("wall") == true and collision_normal_local.x != 0:
 					var new_platform: StaticBody2D = platform.instantiate()
 					if collision_normal_local.x > 0:
 						new_platform.get_node("Sprite2D").flip_h = true

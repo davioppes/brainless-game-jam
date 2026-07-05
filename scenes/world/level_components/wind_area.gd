@@ -79,6 +79,8 @@ func remove_wind_tiles():
 		for i in range(int((ray_cast_2d.global_position.x + original_target_position.x) / 16),int(collision_point.x / 16), -1 * direction.x):
 			wind_layer.set_cell(Vector2i(i,int(collision_point.y / 16)),3,Vector2i(0,1))
 			wind_layer.set_cell(Vector2i(i,int(collision_point.y / 16) - 1),3,Vector2i(0,1))
+
+
 func _object_entered(body: PhysicsBody2D):
 	object_inside_wind = true
 	current_objects_inside.append(body)
@@ -98,4 +100,8 @@ func _object_exited(body: PhysicsBody2D):
 	else:
 		body.wind_velocity -= wind_speed * direction
 		if body is Player:
-			body.wind_linger_velocity += wind_speed * direction
+			if direction == Vector2.RIGHT or direction == Vector2.DOWN:
+				body.wind_linger_velocity += (wind_speed.normalized() * (body.global_position - wind_origin)) * direction
+			elif direction == Vector2.LEFT or direction == Vector2.UP:
+				body.wind_linger_velocity += (wind_speed.normalized() * (wind_origin - body.global_position)) * direction
+			

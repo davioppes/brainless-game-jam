@@ -24,14 +24,21 @@ var wind_linger_velocity: Vector2 = Vector2.ZERO
 const SPEED = 100.0
 const JUMP_VELOCITY = -300.0
 var reduce_jump_height: float = 0.75
+var jump_available: bool = true
+
+var coyote_frames = 5 # How many in-air frames to allow jumping
+var coyote = false  # Track whether we're in coyote time or not
+var last_floor = false  # Last frame's on-floor state
 
 
 func _ready() -> void:
+	$CoyoteTimer.wait_time = coyote_frames / 60.0
+	
 	if spawn_point:
 		global_position = spawn_point.global_position
 	
-	player_height = player_collision_shape.shape.size.y
-	print(player_height)
+	#player_height = player_collision_shape.shape.size.y
+	#print(player_height)
 	pickup_area.facing_right = pickup_area.position
 	pickup_area.facing_left = Vector2(-pickup_area.position.x,pickup_area.position.y)
 
@@ -44,15 +51,19 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	
+	#Handle pickup
 	if Input.is_action_just_pressed("pickup"):
 		if pickup_object and not currently_picked_up and seedling != null:
 			pickup()
 		elif not pickup_object and currently_picked_up:
 			drop()
-
+	
+	#Handle throw
 	if Input.is_action_just_pressed("throw") and currently_picked_up:
 		throw()
-		
+	
+	#Handle change action of pickup guy
 	if Input.is_action_just_pressed("change_action") and currently_picked_up:
 		change_action()
 	
@@ -65,8 +76,9 @@ func _physics_process(delta: float) -> void:
 		wind_linger_velocity = Vector2.ZERO
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or jump_available):
 		velocity.y = JUMP_VELOCITY 
+		jump_available = false
 	if Input.is_action_pressed("move_left"):
 		direction = -1
 		current_facing_direction = direction
@@ -82,13 +94,16 @@ func _physics_process(delta: float) -> void:
 		current_movement_state = MovementState.WALKING
 		animated_sprite_2d.flip_h = false
 	
+	# Apply the movement to the player
 	velocity.x = direction * SPEED
 	velocity += wind_velocity
-	velocity += wind_linger_velocity
 	
+	if wind_linger_velocity.x != 0:
+		velocity += wind_linger_velocity
 	
+	# Reduce wind velocity over time while in the air
 	if wind_linger_velocity.length() > 0:
-		wind_linger_velocity = wind_linger_velocity.move_toward(Vector2.ZERO,delta * 30)
+		wind_linger_velocity = wind_linger_velocity.move_toward(Vector2.ZERO,delta * 55)
 		print(wind_linger_velocity)
 	
 	
@@ -98,6 +113,12 @@ func _physics_process(delta: float) -> void:
 	play_animations()
 	
 	move_and_slide()
+	
+	if is_on_floor() and not jump_available:
+		jump_available = true
+	
+	if (not is_on_floor()) and jump_available and $CoyoteTimer.is_stopped():
+		$CoyoteTimer.start()
 
 
 func _input(event: InputEvent) -> void:
@@ -158,3 +179,15 @@ func _on_pickup_area_body_exited(body: Node2D) -> void:
 		body.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		pickup_object = false
 		seedling = null
+
+
+func _on_coyote_timer_timeout() -> void:
+	jump_available = false
+
+
+func _on_bramble_hitbox_body_entered(body: Node2D) -> void:
+	reset_level()
+
+
+func reset_level():
+	get_tree().reload_current_scene()

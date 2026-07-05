@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bfsag0d545y3d"]
+
+[ext_resource type="Script" uid="uid://bvfwg7iaxl1km" path="res://scenes/world/level_components/brambles.gd" id="1_ow4bd"]
+
+[node name="Brambles" type="Area2D" unique_id=766208715]
+script = ExtResource("1_ow4bd")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

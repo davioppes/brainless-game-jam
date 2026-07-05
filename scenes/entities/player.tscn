@@ -71,8 +71,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_08t41"]
-size = Vector2(14, 16)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_73kkf"]
+radius = 6.0
+height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n5sgd"]
+radius = 8.0
+height = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ie0h"]
 size = Vector2(13.4375, 8)
@@ -95,7 +100,15 @@ animation = &"walking"
 
 [node name="PlayerCollisionShape" type="CollisionShape2D" parent="." unique_id=530042959]
 unique_name_in_owner = true
-shape = SubResource("RectangleShape2D_08t41")
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_73kkf")
+
+[node name="BrambleHitbox" type="Area2D" parent="." unique_id=1327669722]
+visible = false
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BrambleHitbox" unique_id=872247477]
+shape = SubResource("CapsuleShape2D_n5sgd")
 
 [node name="PickupPosition" type="Marker2D" parent="." unique_id=1405232692]
 unique_name_in_owner = true
@@ -103,7 +116,7 @@ position = Vector2(0, -18)
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=1090318311]
 unique_name_in_owner = true
-position = Vector2(5, 4)
+position = Vector2(4, 4)
 collision_mask = 2
 script = ExtResource("3_1ie0h")
 metadata/_edit_group_ = true
@@ -112,5 +125,10 @@ metadata/_edit_group_ = true
 position = Vector2(1.28125, 0)
 shape = SubResource("RectangleShape2D_1ie0h")
 
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=1256640284]
+one_shot = true
+
+[connection signal="body_entered" from="BrambleHitbox" to="." method="_on_bramble_hitbox_body_entered"]
 [connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]
 [connection signal="body_exited" from="PickupArea" to="." method="_on_pickup_area_body_exited"]
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
