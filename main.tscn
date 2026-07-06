@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dtk8uxn5d4het"]
 
-[ext_resource type="PackedScene" uid="uid://bcpc8c2b8tb76" path="res://scenes/world/levels/level_1.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://eok3q7tr2pct" path="res://scenes/world/levels/main_menu.tscn" id="1_ig7tw"]
 
 [node name="Main" type="Node" unique_id=539674876]
 
@@ -15,7 +15,8 @@ canvas_item_default_texture_filter = 0
 size = Vector2i(512, 288)
 render_target_update_mode = 4
 
-[node name="Level_1" parent="SubViewportContainer/SubViewport" unique_id=557642134 instance=ExtResource("1_ig7tw")]
+[node name="main_menu" parent="SubViewportContainer/SubViewport" unique_id=557642134 instance=ExtResource("1_ig7tw")]
+position = Vector2(8.599876, 152.63081)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=756810275]
 

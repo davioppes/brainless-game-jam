@@ -32,6 +32,11 @@ var last_floor = false  # Last frame's on-floor state
 
 
 func _ready() -> void:
+	
+	if get_node("Camera2D") != null:
+		var camera: Camera2D = get_node("Camera2D")
+		camera.make_current()
+	
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
 	
 	if spawn_point:
@@ -191,3 +196,13 @@ func _on_bramble_hitbox_body_entered(body: Node2D) -> void:
 
 func reset_level():
 	get_tree().reload_current_scene()
+
+
+func _on_pickup_area_area_entered(area: Area2D) -> void:
+	if area.has_method("interact"):
+		area.interact()
+
+
+func _on_pickup_area_area_exited(area: Area2D) -> void:
+	if area.has_method("interact"):
+		area.hide_text()

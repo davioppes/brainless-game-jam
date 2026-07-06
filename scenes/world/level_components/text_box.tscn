@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://sayymlxjsmhf"]
+
+[ext_resource type="Texture2D" uid="uid://3i1ng1r5nldr" path="res://assets/text_box.png" id="1_l4edv"]
+[ext_resource type="Script" uid="uid://fdu77javs73u" path="res://scenes/world/level_components/text_box.gd" id="1_waevb"]
+[ext_resource type="FontFile" uid="uid://coir2dfc0e4kf" path="res://assets/small_pixel.ttf" id="2_qsugn"]
+
+[node name="TextBox" type="MarginContainer" unique_id=1125642586]
+offset_right = 53.0
+offset_bottom = 35.0
+script = ExtResource("1_waevb")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1566360021]
+layout_mode = 2
+texture = ExtResource("1_l4edv")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=9691920]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="MarginContainer" unique_id=112041232]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_qsugn")
+vertical_alignment = 1
+
+[node name="LetterDisplayTimer" type="Timer" parent="." unique_id=160878688]
+one_shot = true

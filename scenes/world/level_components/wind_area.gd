@@ -85,11 +85,16 @@ func _object_entered(body: PhysicsBody2D):
 	object_inside_wind = true
 	current_objects_inside.append(body)
 	
-	if "wind_velocity" in body and not check_platform_between(body):
-		body.wind_velocity += wind_speed * direction
-	elif check_platform_between(body):
-		body.wind_velocity = Vector2.ZERO
-
+	if body is little_guy:
+		if "wind_velocity" in body and not check_platform_between(body):
+			body.wind_velocity += wind_speed * 0.2 * direction
+		elif check_platform_between(body):
+			body.wind_velocity = Vector2.ZERO
+	elif body is Player:
+		if "wind_velocity" in body and not check_platform_between(body):
+			body.wind_velocity += wind_speed * direction
+		elif check_platform_between(body):
+			body.wind_velocity = Vector2.ZERO
 
 func _object_exited(body: PhysicsBody2D):
 	object_inside_wind = false

@@ -11,7 +11,8 @@ func _ready() -> void:
 
 
 func _on_body_entered(_body: Node2D) -> void:
-	disable_door.emit()
+	if connecting_door.disabled == false:
+		disable_door.emit()
 	$AnimationPlayer.play("press")
 
 

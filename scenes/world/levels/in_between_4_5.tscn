@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b7fn4jw5yyawh" path="res://scenes/world/background.tscn" id="1_r0b6i"]
 [ext_resource type="TileSet" uid="uid://dhs4gnvaj8muv" path="res://resources/level_tileset.tres" id="2_bpk1s"]
 [ext_resource type="PackedScene" uid="uid://dc4rxej3dpxsi" path="res://scenes/entities/player.tscn" id="3_egcha"]
+[ext_resource type="PackedScene" uid="uid://coh3ogins6ijq" path="res://scenes/world/levels/level_5.tscn" id="5_yke8c"]
 [ext_resource type="PackedScene" uid="uid://dcy3ksu6p2hf2" path="res://scenes/world/level_components/level_finish_area.tscn" id="8_udfm0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1cr77"]
@@ -31,7 +32,7 @@ tile_map_data = PackedByteArray("AAAEAAAAAwAAAAIAAAAEAAEAAwAAAAIAAAAEAAIAAwAAAAI
 tile_set = ExtResource("2_bpk1s")
 
 [node name="SpawnPoint" type="Marker2D" parent="SubViewportContainer/SubViewport/Level" unique_id=1043033357]
-position = Vector2(112, 256)
+position = Vector2(400, 256)
 
 [node name="Player" parent="SubViewportContainer/SubViewport/Level" unique_id=918396539 node_paths=PackedStringArray("spawn_point") instance=ExtResource("3_egcha")]
 position = Vector2(128, 224)
@@ -39,6 +40,7 @@ spawn_point = NodePath("../SpawnPoint")
 
 [node name="LevelFinishArea" parent="SubViewportContainer/SubViewport/Level" unique_id=1037168943 instance=ExtResource("8_udfm0")]
 position = Vector2(-96, -64)
+next_scene = ExtResource("5_yke8c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/Level/LevelFinishArea" unique_id=1968548829]
 position = Vector2(592, 280)

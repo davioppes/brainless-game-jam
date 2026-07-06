@@ -83,7 +83,7 @@ height = 16.0
 size = Vector2(13.4375, 8)
 
 [node name="Player" type="CharacterBody2D" unique_id=918396539]
-collision_mask = 124
+collision_mask = 380
 script = ExtResource("1_08t41")
 
 [node name="ArrowPointing" type="Sprite2D" parent="." unique_id=1556842914]
@@ -105,7 +105,7 @@ shape = SubResource("CapsuleShape2D_73kkf")
 
 [node name="BrambleHitbox" type="Area2D" parent="." unique_id=1327669722]
 visible = false
-collision_mask = 128
+collision_mask = 384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BrambleHitbox" unique_id=872247477]
 shape = SubResource("CapsuleShape2D_n5sgd")
@@ -117,7 +117,7 @@ position = Vector2(0, -18)
 [node name="PickupArea" type="Area2D" parent="." unique_id=1090318311]
 unique_name_in_owner = true
 position = Vector2(4, 4)
-collision_mask = 2
+collision_mask = 258
 script = ExtResource("3_1ie0h")
 metadata/_edit_group_ = true
 
@@ -129,6 +129,8 @@ shape = SubResource("RectangleShape2D_1ie0h")
 one_shot = true
 
 [connection signal="body_entered" from="BrambleHitbox" to="." method="_on_bramble_hitbox_body_entered"]
+[connection signal="area_entered" from="PickupArea" to="." method="_on_pickup_area_area_entered"]
+[connection signal="area_exited" from="PickupArea" to="." method="_on_pickup_area_area_exited"]
 [connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]
 [connection signal="body_exited" from="PickupArea" to="." method="_on_pickup_area_body_exited"]
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]

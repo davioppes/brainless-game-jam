@@ -48,7 +48,10 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	apply_force(wind_velocity * 5)
+	if wind_velocity.y == 0:
+		apply_force(wind_velocity)
+	else:
+		apply_impulse(wind_velocity)
 
 
 func throw():
