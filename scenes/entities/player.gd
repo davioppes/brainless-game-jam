@@ -147,6 +147,7 @@ func play_animations():
 
 
 func throw():
+	$Throw.play()
 	picked_up_seedling.throw()
 	currently_picked_up = false
 	picked_up_seedling = null
@@ -158,6 +159,7 @@ func change_action():
 
 
 func pickup():
+	$Pickup.play()
 	arrow_pointing.visible = true
 	picked_up_seedling = seedling
 	picked_up_seedling.follow_player()
@@ -165,6 +167,7 @@ func pickup():
 
 
 func drop():
+	$Drop.play()
 	arrow_pointing.visible = false
 	print(picked_up_seedling.global_position)
 	picked_up_seedling.drop()

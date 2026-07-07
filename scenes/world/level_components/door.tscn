@@ -1,12 +1,16 @@
 [gd_scene format=3 uid="uid://cl83lfeqt535t"]
 
 [ext_resource type="Script" uid="uid://djjyvt1uanllw" path="res://scenes/world/level_components/door.gd" id="1_qatcg"]
+[ext_resource type="AudioStream" uid="uid://c5fw612oofpmw" path="res://assets/sounds/door2.wav" id="2_bl1r3"]
 
 [node name="Door" type="StaticBody2D" unique_id=520072138]
 collision_layer = 64
 collision_mask = 3
 script = ExtResource("1_qatcg")
-disabled = null
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1490235933]
 color = Color(0.61679494, 0.36144072, 0.059042126, 1)
+
+[node name="Open" type="AudioStreamPlayer" parent="." unique_id=1275476914]
+stream = ExtResource("2_bl1r3")
+volume_db = -6.903

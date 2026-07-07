@@ -30,5 +30,6 @@ func disable():
 		disabled = true
 		$CollisionShape2D.set_deferred("disabled",true)
 		$ColorRect.modulate = Color(1.0, 1.0, 1.0, 1.0)
+		$Open.play()
 		
 	

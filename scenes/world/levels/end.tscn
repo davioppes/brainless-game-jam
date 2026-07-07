@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://bgedtktikldb5"]
 
+[ext_resource type="Script" uid="uid://cxlqk8abl20e1" path="res://scenes/world/levels/end.gd" id="1_5cdoh"]
 [ext_resource type="Texture2D" uid="uid://cq5cgc3pdhd6o" path="res://assets/background2.png" id="1_md8f7"]
 [ext_resource type="Texture2D" uid="uid://bj4g78mfirnej" path="res://assets/clouds/small_clouds1.png" id="2_aefse"]
 [ext_resource type="TileSet" uid="uid://dhs4gnvaj8muv" path="res://resources/level_tileset.tres" id="2_kls7f"]
@@ -102,7 +103,8 @@ turbulence_influence_max = 0.273
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mcv2p"]
 size = Vector2(341, 43)
 
-[node name="Level_2" type="Node2D" unique_id=557642134]
+[node name="End" type="Node2D" unique_id=557642134]
+script = ExtResource("1_5cdoh")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1698463358]
 metadata/_edit_use_anchors_ = true
@@ -311,6 +313,7 @@ process_material = SubResource("ParticleProcessMaterial_mcv2p")
 
 [node name="InteractLabel" type="Label" parent="SubViewportContainer/SubViewport/Level" unique_id=1813073573]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

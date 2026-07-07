@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://dcy3ksu6p2hf2"]
 
 [ext_resource type="Script" uid="uid://dj2qi58lhrwm" path="res://scenes/world/level_components/level_finish_area.gd" id="1_i7lw5"]
+[ext_resource type="AudioStream" uid="uid://dubdlaxu77gow" path="res://assets/sounds/next_level_2.wav" id="2_344g8"]
 
 [node name="LevelFinishArea" type="Area2D" unique_id=1037168943]
 script = ExtResource("1_i7lw5")
+
+[node name="Sound" type="AudioStreamPlayer" parent="." unique_id=1274039355]
+stream = ExtResource("2_344g8")

@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://t07tk4vxxmju" path="res://assets/walking_animation/walking1.png" id="2_kv173"]
 [ext_resource type="Theme" uid="uid://r0d3jaignivi" path="res://resources/text_theme_in_level.tres" id="3_4ve3q"]
 [ext_resource type="FontFile" uid="uid://coir2dfc0e4kf" path="res://assets/small_pixel.ttf" id="3_joh20"]
+[ext_resource type="Script" uid="uid://q18x7omyhwrw" path="res://scenes/world/levels/credit_control.gd" id="3_u5xn6"]
+[ext_resource type="PackedScene" uid="uid://eok3q7tr2pct" path="res://scenes/world/levels/main_menu.tscn" id="4_yn034"]
 
 [sub_resource type="Animation" id="Animation_kv173"]
 length = 0.001
@@ -90,6 +92,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_u5xn6")
+next_scene = ExtResource("4_yn034")
 
 [node name="CenterContainer" type="MarginContainer" parent="CanvasLayer/Control" unique_id=2076629382]
 layout_mode = 1
@@ -131,3 +135,15 @@ Thank you to Eric and Joshua
 for playtesting and help with artistic
 direction!"
 horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Control" unique_id=704695202]
+layout_mode = 0
+offset_left = 414.0
+offset_top = 257.0
+offset_right = 512.0
+offset_bottom = 288.0
+theme_override_fonts/font = ExtResource("3_joh20")
+text = "Main Menu"
+flat = true
+
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="CanvasLayer/Control" method="_on_button_pressed"]

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dtdeh1i7agyep"]
+
+[ext_resource type="Script" uid="uid://cre7a2o1vvdpa" path="res://scenes/background_music.gd" id="1_83psx"]
+[ext_resource type="AudioStream" uid="uid://c17pxp34a60ot" path="res://assets/sounds/MainSong.wav" id="2_u6r47"]
+[ext_resource type="AudioStream" uid="uid://dubdlaxu77gow" path="res://assets/sounds/next_level_2.wav" id="3_u6r47"]
+[ext_resource type="AudioStream" uid="uid://cdspy1yq3xou5" path="res://assets/sounds/end_song.wav" id="4_vjuvc"]
+
+[node name="BackgroundMusic" type="Node2D" unique_id=1827359093]
+script = ExtResource("1_83psx")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=129475443]
+stream = ExtResource("2_u6r47")
+volume_db = -15.0
+
+[node name="NextLevel" type="AudioStreamPlayer" parent="." unique_id=151098025]
+stream = ExtResource("3_u6r47")
+
+[node name="End" type="AudioStreamPlayer" parent="." unique_id=699615317]
+stream = ExtResource("4_vjuvc")

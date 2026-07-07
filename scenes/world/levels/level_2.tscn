@@ -87,8 +87,12 @@ tile_map_data = PackedByteArray("AAAAAA8AAwAHAAUAAAABAA8AAwAHAAUAAAACAA8AAwAHAAU
 tile_set = ExtResource("2_nyyrv")
 
 [node name="TextDisplayAreaHint" parent="SubViewportContainer/SubViewport/Level" unique_id=1489963112 node_paths=PackedStringArray("label_to_display") instance=ExtResource("7_nyyrv")]
-position = Vector2(80, 112)
+position = Vector2(56, 111)
 label_to_display = NodePath("../Control/Hint")
+
+[node name="TextDisplayAreaHint2" parent="SubViewportContainer/SubViewport/Level" unique_id=56610858 node_paths=PackedStringArray("label_to_display") instance=ExtResource("7_nyyrv")]
+position = Vector2(56, 111)
+label_to_display = NodePath("../Control/Hint2")
 
 [node name="Control" type="Control" parent="SubViewportContainer/SubViewport/Level" unique_id=1969469516]
 layout_mode = 3
@@ -113,11 +117,28 @@ text = "Different Seed? Throw to spawn platform?
 Go Higher Places!"
 autowrap_mode = 2
 
+[node name="Hint2" type="Label" parent="SubViewportContainer/SubViewport/Level/Control" unique_id=760680702]
+visible = false
+layout_mode = 0
+offset_left = 9.0
+offset_top = 7.0
+offset_right = 140.0
+offset_bottom = 151.0
+theme = ExtResource("8_xa5bi")
+theme_override_constants/line_spacing = 8
+theme_override_constants/paragraph_spacing = -8
+theme_override_fonts/font = ExtResource("8_57jgc")
+theme_override_font_sizes/font_size = 14
+text = "Reset with Z"
+autowrap_mode = 2
+
 [node name="LightOccluder2D" type="LightOccluder2D" parent="SubViewportContainer/SubViewport/Level" unique_id=2123666693]
+visible = false
 position = Vector2(384, 0)
 occluder = SubResource("OccluderPolygon2D_57jgc")
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="SubViewportContainer/SubViewport/Level" unique_id=108692488]
+visible = false
 position = Vector2(448, 0)
 occluder = SubResource("OccluderPolygon2D_xa5bi")
 

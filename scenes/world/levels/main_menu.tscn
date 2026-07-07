@@ -166,7 +166,7 @@ theme_override_colors/font_color = Color(0.6051216, 0.9999997, 0.7128134, 1)
 theme_override_fonts/font = ExtResource("10_oflth")
 theme_override_font_sizes/font_size = 30
 text = "Ascending 
-Leafy"
+Leaf"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control" unique_id=511741150]
 layout_mode = 1
