@@ -497,6 +497,9 @@ texture = ExtResource("2_lv125")
 3:2/0 = 0
 4:2/0 = 0
 4:3/0 = 0
+4:1/0 = 0
+4:1/0/physics_layer_2/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:1/0/physics_layer_2/polygon_0/one_way = true
 
 [resource]
 occlusion_layer_0/light_mask = 1

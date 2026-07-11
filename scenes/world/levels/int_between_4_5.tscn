@@ -192,15 +192,12 @@ offset_bottom = 40.0
 [node name="Label" type="Label" parent="SubViewportContainer/SubViewport/Level/Control" unique_id=1282697557]
 visible = false
 layout_mode = 0
-offset_left = 239.0
-offset_top = 132.0
+offset_left = 371.0
+offset_top = 195.0
 offset_right = 430.0
-offset_bottom = 169.0
+offset_bottom = 225.0
 theme = ExtResource("11_f8ghj")
-theme_override_constants/line_spacing = 5
-theme_override_constants/paragraph_spacing = 0
 theme_override_fonts/font = ExtResource("11_eirur")
-theme_override_font_sizes/font_size = 14
 text = "yipie cool in-between area :3"
 autowrap_mode = 3
 

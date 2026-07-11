@@ -5,7 +5,6 @@
 [ext_resource type="Theme" uid="uid://r0d3jaignivi" path="res://resources/text_theme_in_level.tres" id="3_4ve3q"]
 [ext_resource type="FontFile" uid="uid://coir2dfc0e4kf" path="res://assets/small_pixel.ttf" id="3_joh20"]
 [ext_resource type="Script" uid="uid://q18x7omyhwrw" path="res://scenes/world/levels/credit_control.gd" id="3_u5xn6"]
-[ext_resource type="PackedScene" uid="uid://eok3q7tr2pct" path="res://scenes/world/levels/main_menu.tscn" id="4_yn034"]
 
 [sub_resource type="Animation" id="Animation_kv173"]
 length = 0.001
@@ -68,20 +67,36 @@ _data = {
 &"player": SubResource("Animation_joh20")
 }
 
-[node name="CutsceneEndCredits" type="Node2D" unique_id=2101994183]
+[node name="Node2D" type="Node2D" unique_id=295813040]
 
-[node name="Background" parent="." unique_id=1244149852 instance=ExtResource("1_kv173")]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1815138559]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=387641542]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(512, 288)
+render_target_update_mode = 4
+
+[node name="CutsceneEndCredits" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=2101994183]
+
+[node name="Background" parent="SubViewportContainer/SubViewport/CutsceneEndCredits" unique_id=1244149852 instance=ExtResource("1_kv173")]
 modulate = Color(0.68968266, 0.63509196, 0.66115314, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1374944671]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/CutsceneEndCredits" unique_id=1374944671]
 root_node = NodePath("../Sprite2D")
 libraries/ = SubResource("AnimationLibrary_4ve3q")
 autoplay = &"player"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=990818535]
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/CutsceneEndCredits" unique_id=990818535]
 position = Vector2(471, 118)
 scale = Vector2(3, 3)
 texture = ExtResource("2_kv173")
+
+[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport/CutsceneEndCredits" unique_id=702284251]
+script = ExtResource("3_u5xn6")
+next_scene_path = "res://scenes/world/levels/main_menu.tscn"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1791611450]
 
@@ -92,8 +107,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("3_u5xn6")
-next_scene = ExtResource("4_yn034")
 
 [node name="CenterContainer" type="MarginContainer" parent="CanvasLayer/Control" unique_id=2076629382]
 layout_mode = 1
@@ -103,47 +116,41 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_bottom = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer" unique_id=1078727012]
 layout_mode = 2
-theme_override_constants/separation = 9
+theme_override_constants/separation = 150
 alignment = 1
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" unique_id=859741472]
 layout_mode = 2
 theme = ExtResource("3_4ve3q")
 theme_override_fonts/font = ExtResource("3_joh20")
-text = "The end"
+text = "The end
+All done by Davi (Me) :D"
 horizontal_alignment = 1
 
 [node name="Credit" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" unique_id=1799380295]
 layout_mode = 2
 theme = ExtResource("3_4ve3q")
-text = "All done by Davi (Me) :D
-
-
-
-
-
-
-
-
-Thank you to Eric and Joshua 
+text = "Thank you to Eric and Joshua 
 for playtesting and help with artistic
-direction!"
+direction!
+
+Did you find all the secret rewards? :3"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="CanvasLayer/Control" unique_id=704695202]
+[node name="Button" type="Button" parent="CanvasLayer/Control" unique_id=1386827764]
 layout_mode = 0
-offset_left = 414.0
-offset_top = 257.0
-offset_right = 512.0
-offset_bottom = 288.0
+offset_left = 415.0
+offset_top = 253.0
+offset_right = 513.0
+offset_bottom = 302.0
 theme_override_fonts/font = ExtResource("3_joh20")
 text = "Main Menu"
 flat = true
 
-[connection signal="pressed" from="CanvasLayer/Control/Button" to="CanvasLayer/Control" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="SubViewportContainer/SubViewport/CutsceneEndCredits/Node2D" method="_on_button_pressed"]

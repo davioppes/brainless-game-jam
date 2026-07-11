@@ -82,6 +82,7 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or jump_available):
+		$Jump.play()
 		velocity.y = JUMP_VELOCITY 
 		jump_available = false
 	if Input.is_action_pressed("move_left"):
@@ -209,3 +210,7 @@ func _on_pickup_area_area_entered(area: Area2D) -> void:
 func _on_pickup_area_area_exited(area: Area2D) -> void:
 	if area.has_method("interact"):
 		area.hide_text()
+
+
+func _on_special_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.

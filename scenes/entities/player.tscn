@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://ptaa4sih2rmi" path="res://assets/sounds/pickup.wav" id="12_n5sgd"]
 [ext_resource type="AudioStream" uid="uid://tqj5ndbnrk2" path="res://assets/sounds/drop.wav" id="13_5ki56"]
 [ext_resource type="AudioStream" uid="uid://bcwplhwmnmnmc" path="res://assets/sounds/throw.wav" id="14_saib0"]
+[ext_resource type="AudioStream" uid="uid://c3bea5pfpbmi3" path="res://assets/sounds/jump.wav" id="15_ogpgs"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yr3on"]
 animations = [{
@@ -139,6 +140,10 @@ stream = ExtResource("13_5ki56")
 
 [node name="Throw" type="AudioStreamPlayer" parent="." unique_id=2000136406]
 stream = ExtResource("14_saib0")
+
+[node name="Jump" type="AudioStreamPlayer" parent="." unique_id=882822194]
+stream = ExtResource("15_ogpgs")
+volume_db = -10.0
 
 [connection signal="body_entered" from="BrambleHitbox" to="." method="_on_bramble_hitbox_body_entered"]
 [connection signal="area_entered" from="PickupArea" to="." method="_on_pickup_area_area_entered"]

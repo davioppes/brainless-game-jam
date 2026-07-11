@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://bcpc8c2b8tb76"]
 
 [ext_resource type="PackedScene" uid="uid://b7fn4jw5yyawh" path="res://scenes/world/background.tscn" id="1_2xgvc"]
+[ext_resource type="Script" uid="uid://dyvoqooj277lc" path="res://scenes/world/levels/level_1.gd" id="1_6pira"]
 [ext_resource type="Texture2D" uid="uid://dbuhf8uym7ves" path="res://assets/tree.png" id="2_q6r71"]
 [ext_resource type="TileSet" uid="uid://dhs4gnvaj8muv" path="res://resources/level_tileset.tres" id="2_ql1jm"]
 [ext_resource type="PackedScene" uid="uid://cqbg71yblc2j5" path="res://scenes/world/level_components/button.tscn" id="3_1cr77"]
@@ -8,15 +9,19 @@
 [ext_resource type="PackedScene" uid="uid://cl83lfeqt535t" path="res://scenes/world/level_components/door.tscn" id="5_cdq6t"]
 [ext_resource type="PackedScene" uid="uid://dc4rxej3dpxsi" path="res://scenes/entities/player.tscn" id="6_q6r71"]
 [ext_resource type="PackedScene" uid="uid://dcy3ksu6p2hf2" path="res://scenes/world/level_components/level_finish_area.tscn" id="7_ql1jm"]
-[ext_resource type="PackedScene" uid="uid://cgtt78d3do4qx" path="res://scenes/world/levels/level_2.tscn" id="8_1cr77"]
 [ext_resource type="PackedScene" uid="uid://bnk6f3apr0t6t" path="res://scenes/world/level_components/text_display_area.tscn" id="9_cdq6t"]
 [ext_resource type="Theme" uid="uid://r0d3jaignivi" path="res://resources/text_theme_in_level.tres" id="10_q6r71"]
+[ext_resource type="Script" uid="uid://ds1ladktqyy4f" path="res://scenes/world/levels/special.gd" id="11_pgytw"]
+[ext_resource type="AudioStream" uid="uid://bl2tf8xk5vmrl" path="res://assets/sounds/reward.wav" id="12_6pira"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f4ae1"]
 size = Vector2(16, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1cr77"]
 size = Vector2(16, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_86ij5"]
+size = Vector2(29, 95)
 
 [sub_resource type="Gradient" id="Gradient_q6r71"]
 
@@ -39,6 +44,7 @@ size = Vector2i(550, 288)
 render_target_update_mode = 4
 
 [node name="Level" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=380846788]
+script = ExtResource("1_6pira")
 
 [node name="Background" parent="SubViewportContainer/SubViewport/Level" unique_id=1244149852 instance=ExtResource("1_2xgvc")]
 metadata/_edit_lock_ = true
@@ -99,11 +105,11 @@ position = Vector2(8, 24)
 shape = SubResource("RectangleShape2D_f4ae1")
 
 [node name="Player" parent="SubViewportContainer/SubViewport/Level" unique_id=918396539 node_paths=PackedStringArray("spawn_point") instance=ExtResource("6_q6r71")]
-position = Vector2(240, 224)
+position = Vector2(95, -36)
 spawn_point = NodePath("../SpawnPoint")
 
 [node name="LevelFinishArea" parent="SubViewportContainer/SubViewport/Level" unique_id=1037168943 instance=ExtResource("7_ql1jm")]
-next_scene = ExtResource("8_1cr77")
+next_level_path = "res://scenes/world/levels/level_2.tscn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/Level/LevelFinishArea" unique_id=1968548829]
 position = Vector2(520, 104)
@@ -114,12 +120,25 @@ tile_map_data = PackedByteArray("AAAQAAMAAwAGAAQAAAAQAAcAAwANAAQAADAQAAYAAwAGAAU
 tile_set = ExtResource("2_ql1jm")
 
 [node name="TextDisplayAreaText" parent="SubViewportContainer/SubViewport/Level" unique_id=1489963112 node_paths=PackedStringArray("label_to_display") instance=ExtResource("9_cdq6t")]
-position = Vector2(16, 224)
+position = Vector2(13, 207)
+scale = Vector2(5.5, 2)
 label_to_display = NodePath("../Control/InitialText")
 
 [node name="TextDisplayAreaHint" parent="SubViewportContainer/SubViewport/Level" unique_id=206394512 node_paths=PackedStringArray("label_to_display") instance=ExtResource("9_cdq6t")]
-position = Vector2(144, 224)
+position = Vector2(280, 208)
+scale = Vector2(3, 2)
 label_to_display = NodePath("../Control/Hint")
+
+[node name="Special" type="Area2D" parent="SubViewportContainer/SubViewport/Level" unique_id=725142572]
+position = Vector2(95, -36)
+script = ExtResource("11_pgytw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/Level/Special" unique_id=1615272536]
+position = Vector2(-116.5, 232.5)
+shape = SubResource("RectangleShape2D_86ij5")
+
+[node name="RewardSound" type="AudioStreamPlayer" parent="SubViewportContainer/SubViewport/Level/Special" unique_id=2109329849]
+stream = ExtResource("12_6pira")
 
 [node name="Control" type="Control" parent="SubViewportContainer/SubViewport/Level" unique_id=103851146]
 layout_mode = 3
@@ -130,13 +149,11 @@ offset_bottom = 40.0
 [node name="InitialText" type="Label" parent="SubViewportContainer/SubViewport/Level/Control" unique_id=1975084811]
 visible = false
 layout_mode = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 224.0
-offset_bottom = 304.0
+offset_left = 7.0
+offset_top = 158.0
+offset_right = 211.0
+offset_bottom = 234.0
 theme = ExtResource("10_q6r71")
-theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 16
 text = "It seems I have fallen from the tree...
 
 I must get back up! The tree must have made a mistake!"
@@ -145,16 +162,14 @@ autowrap_mode = 2
 [node name="Hint" type="Label" parent="SubViewportContainer/SubViewport/Level/Control" unique_id=1453259266]
 visible = false
 layout_mode = 0
-offset_left = 224.0
-offset_top = 160.0
-offset_right = 400.0
-offset_bottom = 224.0
+offset_left = 263.0
+offset_top = 167.0
+offset_right = 391.0
+offset_bottom = 199.0
 theme = ExtResource("10_q6r71")
-theme_override_constants/line_spacing = 6
-theme_override_constants/paragraph_spacing = 0
-theme_override_font_sizes/font_size = 13
-text = "Pick up/Drop with E
-Throw with Left Click"
+text = "i can Pick up/Drop with E
+Throw with Left Click
+Reset with Z"
 autowrap_mode = 2
 
 [node name="PointLight2D" type="PointLight2D" parent="SubViewportContainer/SubViewport/Level" unique_id=1494119289]
@@ -163,18 +178,6 @@ scale = Vector2(17.806604, 9.551593)
 texture = SubResource("GradientTexture2D_ocsn6")
 texture_scale = 0.53
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1688091243]
-visible = false
-
-[node name="Control" type="Control" parent="CanvasLayer" unique_id=758777401]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="CanvasLayer/Control" unique_id=1813073573]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
 [connection signal="body_entered" from="SubViewportContainer/SubViewport/Level/LevelFinishArea" to="SubViewportContainer/SubViewport/Level/LevelFinishArea" method="_on_body_entered"]
+[connection signal="area_entered" from="SubViewportContainer/SubViewport/Level/Special" to="SubViewportContainer/SubViewport/Level/Special" method="_on_area_entered"]
+[connection signal="body_entered" from="SubViewportContainer/SubViewport/Level/Special" to="SubViewportContainer/SubViewport/Level/Special" method="_on_body_entered"]
